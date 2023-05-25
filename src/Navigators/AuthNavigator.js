@@ -7,40 +7,64 @@ import SignUpScreen from "../screens/SignUpScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SettingsDetails from "../screens/SettingsDetails";
 import DrawerNavigator from "./DrawerNavigator";
+import RestaurantDetails from "../screens/RestaurantDetails";
+import { Host, Portal } from "react-native-portalize";
+import Deals from "../screens/Deals";
+import OrdersScreen from "../screens/OrdersScreen";
 
 const Stack = createNativeStackNavigator();
 
 const AuthNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={ROUTES.LOGIN_SCREEN}>
-        <Stack.Screen
-          name={ROUTES.LOGIN_SCREEN}
-          component={LoginScreen}
-          options={{ title: "Sign in", headerShown: false }}
-        />
-        <Stack.Screen
-          name={ROUTES.FORGOT_PASSWORD_SCREEN}
-          component={ForgotPasswordScreen}
-          options={{ title: "Forgot Password", headerShown: true }}
-        />
-        <Stack.Screen
-          name={ROUTES.SIGN_UP_SCREEN}
-          component={SignUpScreen}
-          options={{ title: "Sign up", headerShown: true }}
-        />
+      <Host>
+        <Stack.Navigator initialRouteName={ROUTES.LOGIN_SCREEN}>
+          <Stack.Screen
+            name={ROUTES.LOGIN_SCREEN}
+            component={LoginScreen}
+            options={{ title: "Sign in", headerShown: false }}
+          />
+          <Stack.Screen
+            name={ROUTES.FORGOT_PASSWORD_SCREEN}
+            component={ForgotPasswordScreen}
+            options={{ title: "Forgot Password", headerShown: true }}
+          />
+          <Stack.Screen
+            name={ROUTES.SIGN_UP_SCREEN}
+            component={SignUpScreen}
+            options={{ title: "Sign up", headerShown: true }}
+          />
 
-        <Stack.Screen
-          name={ROUTES.DRAWER_NAVIGATOR}
-          component={DrawerNavigator}
-          options={{ title: "HOME", headerShown: false }}
-        />
-        <Stack.Screen
-          name={ROUTES.SETTINGS_DETAILS}
-          component={SettingsDetails}
-          options={{ title: "Settings Details", headerBackVisible: false }}
-        />
-      </Stack.Navigator>
+          <Stack.Screen
+            name={ROUTES.DRAWER_NAVIGATOR}
+            component={DrawerNavigator}
+            options={{ title: "HOME", headerShown: false }}
+          />
+          <Stack.Screen
+            name={ROUTES.SETTINGS_DETAILS}
+            component={SettingsDetails}
+            options={{
+              title: "Settings Details Screen",
+              headerBackVisible: true,
+            }}
+          />
+          <Stack.Screen
+            name={ROUTES.REST_DETAILS}
+            component={RestaurantDetails}
+            options={{ title: "Restaurant", headerShown: false }}
+          />
+          <Stack.Screen
+            name={ROUTES.DEALS_SCREEN}
+            component={Deals}
+            options={{ title: "Deals", headerShown: true }}
+          />
+          {/* <Stack.Screen
+            name={ROUTES.ORDERS_SCREEN}
+            component={OrdersScreen}
+            options={{ title: "OrdersScreen", headerShown: true }}
+          /> */}
+        </Stack.Navigator>
+      </Host>
     </NavigationContainer>
   );
 };

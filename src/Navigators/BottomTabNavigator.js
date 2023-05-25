@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import * as ROUTES from "../constants/routes";
 import HomeScreen from "../screens/HomeScreen";
-import SettingsScreen from "../screens/SettingsScreen";
 import OrdersScreen from "../screens/OrdersScreen";
 import ShopScreen from "../screens/ShopScreen";
 import SettingsNavigator from "./SettingsNavigator";
 import Icon from "react-native-vector-icons/Ionicons";
+import Browse from "../screens/Browse";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,7 @@ function BottomTabNavigator() {
           let icon;
           if (route.name === ROUTES.HOME_SCREEN) {
             icon = focused ? "home" : "home-outline";
-          } else if (route.name === ROUTES.ORDERS_SCREEN) {
+          } else if (route.name === ROUTES.BROWSE_SCREEN) {
             icon = focused ? "card" : "card-outline";
           } else if (route.name === ROUTES.SHOP_SCREEN) {
             icon = focused ? "fast-food" : "fast-food-outline";
@@ -32,22 +32,22 @@ function BottomTabNavigator() {
       <Tab.Screen
         name={ROUTES.HOME_SCREEN}
         component={HomeScreen}
-        options={{ title: "HOME" }}
+        options={{ title: "HOME", headerShown: false }}
       />
       <Tab.Screen
-        name={ROUTES.ORDERS_SCREEN}
-        component={OrdersScreen}
-        options={{ title: "ORDERS" }}
+        name={ROUTES.BROWSE_SCREEN}
+        component={Browse}
+        options={{ title: "Browse", headerShown: false }}
       />
       <Tab.Screen
         name={ROUTES.SHOP_SCREEN}
         component={ShopScreen}
-        options={{ title: "SHOP" }}
+        options={{ title: "SHOP", headerShown: false }}
       />
       <Tab.Screen
         name={ROUTES.SETTINGS_NAVIGATOR}
         component={SettingsNavigator}
-        options={{ title: "SETTINGS" }}
+        options={{ title: "SETTINGS", headerShown: false }}
       />
     </Tab.Navigator>
   );

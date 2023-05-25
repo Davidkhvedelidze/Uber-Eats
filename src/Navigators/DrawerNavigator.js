@@ -6,6 +6,7 @@ import HomeScreen from "../screens/HomeScreen";
 import OrdersScreen from "../screens/OrdersScreen";
 import ShopScreen from "../screens/ShopScreen";
 import SettingsNavigator from "./SettingsNavigator";
+import Browse from "../screens/Browse";
 
 const Drawer = createDrawerNavigator();
 
@@ -20,12 +21,12 @@ function DrawerNavigator() {
       <Drawer.Screen
         name={ROUTES.HOME_SCREEN}
         component={HomeScreen}
-        options={{ title: "HOME", headerShown: false }}
+        options={{ title: "HOME" }}
       />
       <Drawer.Screen
-        name={ROUTES.ORDERS_SCREEN}
+        name={ROUTES.BROWSE_SCREEN}
         component={OrdersScreen}
-        options={{ title: "ORDERS" }}
+        options={{ title: "Browse" }}
       />
       <Drawer.Screen
         name={ROUTES.SHOP_SCREEN}

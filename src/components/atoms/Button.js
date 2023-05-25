@@ -1,4 +1,5 @@
-import React, { Text } from "react";
+import React from "react";
+import { Image } from "react-native";
 import styled, { StyleSheetManager } from "styled-components";
 
 const Container = styled.Pressable`

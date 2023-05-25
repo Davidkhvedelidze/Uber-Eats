@@ -7,14 +7,14 @@ import { useState } from "react";
 
 const LikeBtn = styled.View`
   position: absolute;
-  left: 80%;
-  right: 7%;
+  left: 87%;
   top: 13%;
   bottom: 70%;
 `;
 
 const Container = styled.Pressable`
   margin-bottom: 25px;
+  width: 100%;
 `;
 
 const CardImage = styled.Image``;
@@ -112,9 +112,11 @@ const MainCard = ({
   promotion = false,
   orders,
   reward,
+  distance,
+  onPress,
 }) => {
   return (
-    <Container>
+    <Container onPress={onPress}>
       <CardImage source={imgUrl} />
       <LikeBtn>
         <HeartIcon />
@@ -126,6 +128,11 @@ const MainCard = ({
             <Subtitle>
               ${price} Delivery Fee | {deliveryTime}
               min
+            </Subtitle>
+          )}
+          {distance && (
+            <Subtitle>
+              {deliveryTime} min {distance}mi
             </Subtitle>
           )}
         </TitleWrapper>

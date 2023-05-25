@@ -20,7 +20,7 @@ function SettingsNavigator() {
           title: "Setting Details",
           headerBackTitleVisible: false,
           headerStyle: {
-            backgroundColor: "red",
+            backgroundColor: "white",
           },
         }}
       />
