@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Screen } from "../components/Screen";
 import BrowseCard from "../components/atoms/BrowseCard";
-import { ScrollView, TextInput } from "react-native-gesture-handler";
+import { ScrollView } from "react-native-gesture-handler";
 import Input from "../components/atoms/Input";
-import * as ROUTES from "../constants/routes";
 import { useNavigation } from "@react-navigation/native";
+import { BrowseList, AllCategoriesList } from "../data/appData";
+import { FlatList } from "react-native-gesture-handler";
+import { Ionicons } from "@expo/vector-icons";
 
 const TopContainer = styled.View`
   padding: 10px;
@@ -21,95 +23,26 @@ const Container = styled(Screen)``;
 const Title = styled.Text`
   font-weight: 500;
   font-size: 24px;
-  line-height: 36px;
   color: #000000;
   margin-left: 18px;
 `;
+const SearchContainer = styled.View`
+  margin: 5px 0px 5px 0px;
+  width: 100%;
+  gap: 10px;
+  background-color: #fff4f4;
+`;
+const Results = styled.Pressable`
+  margin: 5px;
+  margin-right: 10px;
+`;
 
-const BrowseList = [
-  {
-    id: 1,
-    title: "Breakfast & Branch",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-10.png"),
-  },
-  {
-    id: 2,
-    title: "Coffe & Tea",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-9.png"),
-  },
-  {
-    id: 3,
-    title: "Deals",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-8.png"),
-    handlePress: () => {
-      navigation.navigate(ROUTES.DEALS_SCREEN, { num: 0 });
-    },
-  },
-  {
-    id: 4,
-    title: "Restaurant Rewards",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-1.png"),
-    handlePress: () => {
-      navigation.navigate(ROUTES.DEALS_SCREEN, { num: 1 });
-    },
-  },
-  {
-    id: 5,
-    title: "Best Overall",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-2.png"),
-  },
-  {
-    id: 6,
-    title: "Shipped Tea",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-3.png"),
-  },
-];
-const AllCategoriesList = [
-  {
-    id: 7,
-    title: "Sandwich",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-4.png"),
-  },
-  {
-    id: 8,
-    title: "Sandwich",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-5.png"),
-  },
-  {
-    id: 9,
-    title: "Sandwich",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-6.png"),
-  },
-  {
-    id: 10,
-    title: "Sandwich",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-7.png"),
-  },
-  {
-    id: 11,
-    title: "Best Overall",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-2.png"),
-  },
-  {
-    id: 12,
-    title: "Shipped Tea",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-3.png"),
-  },
-  {
-    id: 13,
-    title: "Best Overall",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-2.png"),
-  },
-  {
-    id: 14,
-    title: "Shipped Tea",
-    imgUrl: require("../components/pictures/BrowseImages/CategoryImage-3.png"),
-  },
-];
-const Browse = () => {
-  const navigation = useNavigation();
+const Browse = ({ navigation }) => {
+  const [browse, setBrowse] = useState(BrowseList);
+  const [offers, setOffers] = useState(AllCategoriesList);
+  const newNavigation = useNavigation();
 
-  const AllSearchList = [...BrowseList, ...AllCategoriesList];
+  const AllSearchList = [...browse, ...offers];
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
@@ -128,9 +61,24 @@ const Browse = () => {
     setSearchResult(result);
   };
 
+  // const fetchData = async () => {
+  //   fetch("https://jsonplaceholder.typicode.com/todos/1")
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data));
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
   return (
     <Container>
-      <Input handleSearch={handleSearch} />
+      <Input
+        handleSearch={handleSearch}
+        title={"Food, shopping, drinks, etc"}
+        icon={<Ionicons name="md-search-outline" size={24} color="black" />}
+        color={"rgba(0, 0, 0, 0.4)"}
+      />
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 18,
@@ -142,27 +90,47 @@ const Browse = () => {
         {search.trim() && (
           <>
             <Title>Search Result</Title>
-            <TopContainer>
-              {searchResult.map((item) => (
+            <SearchContainer>
+              {/* {searchResult.map((item) => (
                 <BrowseCard
                   title={item.title}
                   imgUrl={item.imgUrl}
                   key={item.id}
-                  navigation={navigation}
+                  navigation={newNavigation}
                 />
-              ))}
-            </TopContainer>
+              ))} */}
+              <Results>
+                <FlatList
+                  data={searchResult}
+                  keyExtractor={(item) => item.id}
+                  renderItem={({ item }) => (
+                    <BrowseCard
+                      imgUrl={item.imgUrl}
+                      title={item.title}
+                      onPress={() => alert("nice job")}
+                      navigation={newNavigation}
+                    />
+                  )}
+                  showsHorizontalScrollIndicator={false}
+                  horizontal={true}
+                />
+              </Results>
+            </SearchContainer>
           </>
         )}
         <Title>Top Categories</Title>
         <TopContainer>
-          {BrowseList.map((item) => {
+          {browse.map((item) => {
             return (
               <BrowseCard
                 title={item.title}
                 imgUrl={item.imgUrl}
                 key={item.id}
-                onPress={item.handlePress}
+                onPress={() =>
+                  navigation.navigate(item.routeName, {
+                    num: item.type,
+                  })
+                }
               />
             );
           })}
@@ -170,7 +138,7 @@ const Browse = () => {
         <Title>All Categories </Title>
 
         <TopContainer>
-          {AllCategoriesList.map((item) => {
+          {offers.map((item) => {
             return (
               <BrowseCard
                 title={item.title}

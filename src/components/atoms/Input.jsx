@@ -1,23 +1,31 @@
 import { View, Text, StyleSheet } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import { TextInput } from "react-native-gesture-handler";
 import React from "react";
 
-const Input = ({ handleSearch }) => {
+const Input = ({
+  handleSearch,
+  onChangeText,
+  title,
+  icon,
+  color,
+  value,
+  secureText,
+  ...otherProps
+}) => {
   return (
-    <View style={styles.Container}>
-      <View style={styles.IconContainer}>
-        <Ionicons name="md-search-outline" size={24} color="black" />
-      </View>
+    <View style={styles.Container} {...otherProps}>
+      {icon && <View style={styles.IconContainer}>{icon}</View>}
       <TextInput
         style={styles.Input}
-        placeholder="Food, shopping, drinks, etc"
-        placeholderTextColor="#000000"
-        // value={searchText}
-
+        placeholder={title}
+        value={value}
+        placeholderTextColor={color ? color : "black"}
         autoCorrect={false}
         editable={true}
-        onChangeText={(text) => handleSearch(text)}
+        onChangeText={(text) =>
+          handleSearch ? handleSearch(text) : onChangeText(text)
+        }
+        secureTextEntry={secureText}
       />
     </View>
   );
@@ -29,13 +37,21 @@ const styles = StyleSheet.create({
   Container: {
     width: "90%",
     backgroundColor: "#d9d3d3ec",
-    borderRadius: 99,
+    borderRadius: 20,
     display: "flex",
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     padding: 10,
     margin: 10,
   },
-  Input: { display: "flex", width: 313, height: 34 },
+  Input: {
+    display: "flex",
+    width: 270,
+    height: 34,
+    fontSize: 18,
+    color: "black",
+  },
   IconContainer: {
     display: "flex",
     justifyContent: "center",

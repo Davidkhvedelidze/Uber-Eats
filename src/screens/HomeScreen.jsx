@@ -9,246 +9,13 @@ import * as ROUTES from "../../src/constants/routes.js";
 
 import { Portal } from "react-native-portalize";
 import BottomSheet from "../components/atoms/BottomSheet.jsx";
-import Button from "../components/atoms/Button.js";
 import CategoryCard from "../components/atoms/CategoryCard.jsx";
-
-const listToRender = [
-  {
-    id: 0,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "Delivery",
-    price: "0.29",
-    deliveryTime: "10-25",
-    rating: 4.7,
-    promotion: true,
-    orders: "5",
-    reward: "8",
-    distance: 5.4,
-  },
-  {
-    id: 1,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "Delivery",
-    price: "5.249",
-    deliveryTime: "5-25",
-    rating: 4.1,
-    distance: 6.4,
-  },
-  {
-    id: 2,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "Delivery",
-    price: "6.50",
-    deliveryTime: "10-25",
-    rating: 4.9,
-    distance: 1.4,
-  },
-  {
-    id: 3,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "random lastname",
-    price: "2.29",
-    deliveryTime: "10-25",
-    rating: 3.4,
-  },
-  {
-    id: 4,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "random lastname",
-    price: "0.39",
-    deliveryTime: "15-25",
-    rating: 4.1,
-  },
-  {
-    id: 5,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "random lastname",
-    price: "0.29",
-    deliveryTime: "10-15",
-    rating: 4.8,
-  },
-];
-
-const PikckupListToRender = [
-  {
-    id: 0,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "pickup",
-    price: "0.29",
-    deliveryTime: "10-25",
-    rating: 4.7,
-    promotion: true,
-    orders: "5",
-    reward: "8",
-    distance: 1.4,
-  },
-  {
-    id: 1,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "pickup ",
-    price: "5.249",
-    deliveryTime: "5-25",
-    rating: 4.1,
-    distance: 4.4,
-  },
-  {
-    id: 2,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "page",
-    price: "6.50",
-    deliveryTime: "10-25",
-    rating: 4.9,
-  },
-];
-const DineinListToRender = [
-  {
-    id: 1,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "random lastname",
-    price: "5.249",
-    deliveryTime: "5-25",
-    rating: 4.1,
-  },
-  {
-    id: 2,
-    imgUrl: require("../Images/mainCardImg.png"),
-    title: "random lastname",
-    price: "6.50",
-    deliveryTime: "10-25",
-    rating: 4.9,
-  },
-];
-
-const CategoryListItems = [
-  {
-    id: 0,
-    title: "Convenience",
-    imgUrl: require("../components/pictures/CategoryImages/Convenience.png"),
-  },
-  {
-    id: 1,
-
-    title: "Alcohol",
-    imgUrl: require("../components/pictures/CategoryImages/Alcohol.png"),
-  },
-  {
-    id: 2,
-
-    title: "Pet Supplies",
-    imgUrl: require("../components/pictures/CategoryImages/PetSupplies.png"),
-  },
-  {
-    id: 3,
-
-    title: "Flowers",
-    imgUrl: require("../components/pictures/CategoryImages/Flowers.png"),
-  },
-  {
-    id: 4,
-
-    title: "Grocery",
-    imgUrl: require("../components/pictures/CategoryImages/Grocery.png"),
-  },
-  {
-    id: 5,
-
-    title: "American",
-    imgUrl: require("../components/pictures/CategoryImages/American.png"),
-  },
-  {
-    id: 6,
-
-    title: "Speciality",
-    imgUrl: require("../components/pictures/CategoryImages/Speciality.png"),
-  },
-  {
-    id: 7,
-
-    title: "Takeout",
-    imgUrl: require("../components/pictures/CategoryImages/Takeout.png"),
-  },
-  {
-    id: 8,
-
-    title: "Asian",
-    imgUrl: require("../components/pictures/CategoryImages/Asian.png"),
-  },
-  {
-    id: 9,
-
-    title: "Ice Cream",
-    imgUrl: require("../components/pictures/CategoryImages/IceCream.png"),
-  },
-  {
-    id: 10,
-
-    title: "Halal",
-    imgUrl: require("../components/pictures/CategoryImages/Halal.png"),
-  },
-  {
-    id: 11,
-
-    title: "Retails",
-    imgUrl: require("../components/pictures/CategoryImages/Retails.png"),
-  },
-  {
-    id: 12,
-
-    title: "Carribean",
-    imgUrl: require("../components/pictures/CategoryImages/Carribean.png"),
-  },
-  {
-    id: 13,
-
-    title: "Indian",
-    imgUrl: require("../components/pictures/CategoryImages/Indian.png"),
-  },
-  {
-    id: 14,
-
-    title: "French",
-    imgUrl: require("../components/pictures/CategoryImages/French.png"),
-  },
-  {
-    id: 15,
-
-    title: "Fast Foods",
-    imgUrl: require("../components/pictures/CategoryImages/FastFoods.png"),
-  },
-  {
-    id: 16,
-
-    title: "Burger",
-    imgUrl: require("../components/pictures/CategoryImages/Burger.png"),
-  },
-  {
-    id: 17,
-
-    title: "Ride",
-    imgUrl: require("../components/pictures/CategoryImages/Ride.png"),
-  },
-  {
-    id: 18,
-
-    title: "Chinese",
-    imgUrl: require("../components/pictures/CategoryImages/Chinese.png"),
-  },
-  {
-    id: 19,
-
-    title: "Dessert",
-    imgUrl: require("../components/pictures/CategoryImages/Dessert.png"),
-  },
-];
-
-const RenderComponent = ({ firstName, lastName }) => {
-  return (
-    <View style={styles.container}>
-      <Text>{firstName}</Text>
-      <Text>{lastName}</Text>
-    </View>
-  );
-};
+import {
+  homeScreenlistToRender,
+  PikckupListToRender,
+  DineinListToRender,
+  CategoryListItems,
+} from "../data/appData.js";
 
 const Container = styled(Screen)`
   background-color: white;
@@ -310,17 +77,22 @@ const BottomFlattlistWrapper = styled.View`
 `;
 
 const HomeScreen = ({ navigation }) => {
+  const [list, setList] = useState(homeScreenlistToRender);
+  const [pickupList, setPickupList] = useState(PikckupListToRender);
+  const [dinein, setDinein] = useState(DineinListToRender);
+  const [category, setCategory] = useState(CategoryListItems);
+
   const [ctgr, setCtgr] = useState(0);
   const [data, setData] = useState([]);
   const categorySheetRef = useRef();
 
   const fetchData = () => {
     if (ctgr === 0) {
-      setData(listToRender);
+      setData(list);
     } else if (ctgr === 1) {
-      setData(PikckupListToRender);
+      setData(pickupList);
     } else if (ctgr === 2) {
-      setData(DineinListToRender);
+      setData(dinein);
     }
   };
 
@@ -347,7 +119,7 @@ const HomeScreen = ({ navigation }) => {
       setLoading(false);
       fetchData();
     }, 1000);
-  }, []);
+  }, [ctgr]);
 
   return (
     <Container>
@@ -369,19 +141,19 @@ const HomeScreen = ({ navigation }) => {
         </SortButtonContainer>
         <CtgrBtnWrapper>
           <CategoryCard
-            title={CategoryListItems[0].title}
-            imgUrl={CategoryListItems[0].imgUrl}
-            onPress={() => alert(CategoryListItems[0].title)}
+            title={category[0].title}
+            imgUrl={category[0].imgUrl}
+            onPress={() => alert(category[0].title)}
           />
           <CategoryCard
-            title={CategoryListItems[1].title}
-            imgUrl={CategoryListItems[1].imgUrl}
-            onPress={() => alert(CategoryListItems[1].title)}
+            title={category[1].title}
+            imgUrl={category[1].imgUrl}
+            onPress={() => alert(category[1].title)}
           />
           <CategoryCard
-            title={CategoryListItems[2].title}
-            imgUrl={CategoryListItems[2].imgUrl}
-            onPress={() => alert(CategoryListItems[2].title)}
+            title={category[2].title}
+            imgUrl={category[2].imgUrl}
+            onPress={() => alert(category[2].title)}
           />
           <CategoryCard
             title="More"
@@ -418,20 +190,7 @@ const HomeScreen = ({ navigation }) => {
         <BottomSheet bottomSheetRef={categorySheetRef} modalHeight={600}>
           <AllCtgrText>All Categories</AllCtgrText>
           <BottomFlattlistWrapper>
-            {/* <FlatList
-              horizontal={false}
-              numColumns={4}
-              data={CategoryListItems}
-              renderItem={({ item }) => (
-                <CategoryCard
-                  title={item.title}
-                  imgUrl={item.imgUrl}
-                  key={item.id}
-                  onPress={() => alert(item.title)}
-                />
-              )}
-            /> */}
-            {CategoryListItems.map((item) => {
+            {category.map((item) => {
               return (
                 <CategoryCard
                   title={item.title}

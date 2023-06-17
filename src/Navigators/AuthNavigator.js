@@ -11,6 +11,11 @@ import RestaurantDetails from "../screens/RestaurantDetails";
 import { Host, Portal } from "react-native-portalize";
 import Deals from "../screens/Deals";
 import OrdersScreen from "../screens/OrdersScreen";
+import OrderDetails from "../screens/OrderDetails";
+import DeliveryDetails from "../screens/DeliveryDetails";
+import GroceryScreen from "../screens/GroceryScreen";
+import SafeWay from "../screens/SafeWay";
+import RegisterScreen from "../screens/RegisterScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +27,12 @@ const AuthNavigator = () => {
           <Stack.Screen
             name={ROUTES.LOGIN_SCREEN}
             component={LoginScreen}
-            options={{ title: "Sign in", headerShown: false }}
+            options={{ title: "Log in", headerShown: false }}
+          />
+          <Stack.Screen
+            name={ROUTES.REGISTER_SCREEN}
+            component={RegisterScreen}
+            options={{ title: "Register", headerShown: false }}
           />
           <Stack.Screen
             name={ROUTES.FORGOT_PASSWORD_SCREEN}
@@ -32,7 +42,7 @@ const AuthNavigator = () => {
           <Stack.Screen
             name={ROUTES.SIGN_UP_SCREEN}
             component={SignUpScreen}
-            options={{ title: "Sign up", headerShown: true }}
+            options={{ title: "Sign up", headerShown: false }}
           />
 
           <Stack.Screen
@@ -45,7 +55,7 @@ const AuthNavigator = () => {
             component={SettingsDetails}
             options={{
               title: "Settings Details Screen",
-              headerBackVisible: true,
+              headerBackVisible: false,
             }}
           />
           <Stack.Screen
@@ -54,15 +64,30 @@ const AuthNavigator = () => {
             options={{ title: "Restaurant", headerShown: false }}
           />
           <Stack.Screen
+            name={ROUTES.ORDER_DETAILS}
+            component={OrderDetails}
+            options={{ title: "Order Details", headerShown: true }}
+          />
+          <Stack.Screen
             name={ROUTES.DEALS_SCREEN}
             component={Deals}
             options={{ title: "Deals", headerShown: true }}
           />
-          {/* <Stack.Screen
-            name={ROUTES.ORDERS_SCREEN}
-            component={OrdersScreen}
-            options={{ title: "OrdersScreen", headerShown: true }}
-          /> */}
+          <Stack.Screen
+            name={ROUTES.DELIVERY_DETAILS}
+            component={DeliveryDetails}
+            options={{ title: "Delivery Details", headerShown: true }}
+          />
+          <Stack.Screen
+            name={ROUTES.GROCERY_SCREEN}
+            component={GroceryScreen}
+            options={{ title: "Grocery", headerShown: false }}
+          />
+          <Stack.Screen
+            name={ROUTES.SAFEWAY_SCREEN}
+            component={SafeWay}
+            options={{ title: "SafeWay", headerShown: false }}
+          />
         </Stack.Navigator>
       </Host>
     </NavigationContainer>

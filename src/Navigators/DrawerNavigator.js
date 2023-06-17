@@ -16,7 +16,7 @@ function DrawerNavigator() {
       <Drawer.Screen
         name={ROUTES.BOTTOM_TAB_NAV}
         component={BottomTabNavigator}
-        options={{ title: "SING UP", headerShown: true }}
+        options={{ title: "SING UP", headerShown: false }}
       />
       <Drawer.Screen
         name={ROUTES.HOME_SCREEN}

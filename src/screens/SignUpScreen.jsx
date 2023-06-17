@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import * as ROUTES from "../constants/routes";
 import Button from "../components/atoms/Button";
 import { View, Text, Platform, Dimensions } from "react-native";
+import { UpdateUser, User } from "../UserProvider";
+import { login } from "../helpers/login";
 
 function SignUpScreen({ navigation }) {
   return (

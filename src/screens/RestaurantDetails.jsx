@@ -4,62 +4,13 @@ import styled from "styled-components";
 import { Screen } from "../components/Screen";
 import Button from "../components/atoms/Button";
 import RestDetailsCard from "../components/organisms/RestDetailsCard";
+import * as ROUTES from "../constants/routes";
+import { detailsData } from "../data/appData";
+import { useState } from "react";
 
 const Container = styled.ScrollView`
   padding: 20px;
 `;
-
-const data = {
-  restaurant: {
-    name: "Lanespan Pizza & Pub (Emeryville)",
-    category: "pizza",
-    rating: "4.3",
-    ratingQuantity: 150,
-    workingHours: "Open until 3:00 AM",
-  },
-  mostPopular: [
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic,ive oil base, mozarella, cremini mushrooms, ricotta, thyme, hite truffle oil. Add arugula for an extra charge",
-      imgUrl: require("../components/pictures/PizzaImage.png"),
-    },
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic, live oil base, mozarella, cremini mushrooms, ricotta, thyme, ite truffle oil. Add arugula for an extra charge",
-      imgUrl: require("../components/pictures/PizzaImage.png"),
-    },
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic, live oil base, mozarella, cremini mushrooms, ricotta, thyme, wite truffle oil. Add arugula for an extra charge",
-      imgUrl: require("../components/pictures/PizzaImage.png"),
-    },
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic, live oil base, mozarella, cremini mushrooms, ricotta, thyme, wite truffle oil. Add arugula for an extra charge",
-    },
-  ],
-  pickedForYou: [
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic,ive oil base, mozarella, cremini mushrooms, ricotta, thyme, hite truffle oil. Add arugula for an extra charge",
-    },
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic, live oil base, mozarella, cremini mushrooms, ricotta, thyme, ite truffle oil. Add arugula for an extra charge",
-    },
-    {
-      title: "McMushroom Pizza",
-      price: "US$21.00",
-      desc: "Garlic, live oil base, mozarella, cremini mushrooms, ricotta, thyme, wite truffle oil. Add arugula for an extra charge",
-    },
-  ],
-};
 
 const HeaderContainer = styled.View``;
 const RestInfo = styled.Text``;
@@ -90,6 +41,7 @@ const SectionTitle = styled.Text`
 const SectionContainer = styled.View``;
 
 const RestaurantDetails = ({ route, navigation }) => {
+  const [data, setData] = useState(detailsData);
   const rest = data.restaurant;
 
   return (
@@ -113,13 +65,37 @@ const RestaurantDetails = ({ route, navigation }) => {
       <View style={{ height: 10 }}></View>
       <SectionContainer>
         <SectionTitle>Most Popular</SectionTitle>
-        {data.mostPopular.map((item) => {
+        {data.mostPopular.map((item, idx) => {
           return (
             <RestDetailsCard
+              key={idx}
               title={item.title}
               subtitle={item.price}
               desc={item.desc}
               imgUrl={item.imgUrl}
+              onPress={() =>
+                navigation.navigate(ROUTES.ORDER_DETAILS, {
+                  ...item,
+                  restaurantName: rest.name,
+                })
+              }
+            />
+          );
+        })}
+      </SectionContainer>
+      <SectionContainer>
+        <SectionTitle>Picked For You</SectionTitle>
+        {data.pickedForYou.map((item, idx) => {
+          return (
+            <RestDetailsCard
+              key={idx}
+              title={item.title}
+              subtitle={item.price}
+              desc={item.desc}
+              imgUrl={item.imgUrl}
+              onPress={() =>
+                navigation.navigate(ROUTES.ORDER_DETAILS, { item })
+              }
             />
           );
         })}

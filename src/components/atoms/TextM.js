@@ -5,20 +5,21 @@ const Txt = styled.Text`
   font-family: ${({ type }) => {
     switch (type) {
       case "Bold":
-        return "Uber=Bold";
+        return "Uber-Bold";
       case "Medium":
         return "Uber-Medium";
       default:
         return "Uber-Medium";
     }
   }};
+  font-size: ${({ size }) => (size ? size : 16)}px;
 `;
-const Text = ({ children, type = "Medium", ...otherProps }) => {
+const TextM = ({ children, type = "Bold", size, ...otherProps }) => {
   return (
-    <Txt type={type} {...otherProps}>
+    <Txt type={type} size={size} {...otherProps}>
       {children}
     </Txt>
   );
 };
 
-export default Text;
+export default TextM;

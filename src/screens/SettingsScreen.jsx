@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import * as ROUTES from "../constants/routes";
 
@@ -7,6 +7,12 @@ import Button from "../components/atoms/Button";
 import { Screen } from "../components/Screen";
 import SettingsCard from "../components/organisms/SettingsCard";
 import { ScrollView } from "react-native-gesture-handler";
+import { DetailsInfo } from "../data/appData";
+import { User } from "../UserProvider";
+import { removeItemValue } from "../helpers/manageStorage";
+import AppSnackBar from "../components/molecules/AppSnackBar";
+import { log } from "react-native-reanimated";
+import { getData } from "../helpers/manageStorage";
 
 const Btn = styled(Button)``;
 const Container = styled(Screen)`
@@ -14,51 +20,6 @@ const Container = styled(Screen)`
   align-items: center;
   justify-content: center;
 `;
-
-const DetailsInfo = [
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Order.png"),
-    title: "Orders",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/YourFav.png"),
-    title: "Your Favorites",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Restaurant-Rewards.png"),
-    title: "Restaurant Rewards",
-    value: ROUTES.DEALS_SCREEN,
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Wallet.png"),
-    title: "Wallet",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/GiftIcon.png"),
-    title: "Send a gift",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Help.png"),
-    title: "Help",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Promotions.png"),
-    title: "Promotions",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Uber-Pass.png"),
-    title: "Uber Pass ",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Deliver.png"),
-    title: "Deliver with Uber",
-  },
-  {
-    iconUrl: require("../components/pictures/SettingsIcons/Settings.png"),
-    title: "Settings",
-    value: ROUTES.SETTINGS_DETAILS,
-  },
-];
 
 const UserCard = styled.View`
   width: 360px;
@@ -73,7 +34,6 @@ const UserImage = styled.Image`
   margin-right: 10px;
 `;
 const UserName = styled.Text`
-  width: 79px;
   height: 22px;
   font-weight: 400;
   font-size: 18px;
@@ -81,24 +41,51 @@ const UserName = styled.Text`
 `;
 
 const SettingsScreen = ({ navigation }) => {
+  const [details, setDetails] = useState(DetailsInfo);
+  // const user = User();
+
   const handlePress = (str) => {
     navigation.navigate(str, { num: 2 });
   };
+
+  const [user, setUser] = useState();
+
+  const [Logout, setLogout] = useState(false);
+
+  const handleLogOut = async () => {
+    // const res = removeItemValue("user");
+    if (res) {
+      // setLogout(true);
+      navigation.navigate(ROUTES.LOGIN_SCREEN);
+    }
+  };
+
+  const getUserData = async () => {
+    const res = await getData("user");
+    if (res) {
+      setUser(res);
+      return;
+    }
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <Container
       style={{ flex: 1, alignItems: "center", justifyContent: "center" }}
     >
-      {/* <Btn
-        title="Go to Details"
-        onPress={() => navigation.navigate(ROUTES.SETTINGS_DETAILS)}
-      /> */}
       <ScrollView contentContainerStyle={{ flexGrow: 1, paddingTop: 90 }}>
+        <AppSnackBar
+          text="Succesfully Log out"
+          visible={Logout}
+          callback={setLogout}
+        />
         <UserCard>
           <UserImage source={require("../components/pictures/UserImage.png")} />
-          <UserName>John Doe</UserName>
+          <UserName>{user ? user.name : "John doe"}</UserName>
         </UserCard>
-        {/* <Text>SETTINGS SCREEN</Text> */}
-        {DetailsInfo.map((card, idx) => {
+        {details.map((card, idx) => {
           return (
             <SettingsCard
               key={idx}
@@ -108,6 +95,7 @@ const SettingsScreen = ({ navigation }) => {
             />
           );
         })}
+        <Button title="Log Out" onPress={handleLogOut} />
       </ScrollView>
     </Container>
   );
