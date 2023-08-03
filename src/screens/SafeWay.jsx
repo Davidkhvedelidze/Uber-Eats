@@ -191,6 +191,7 @@ const SafeWay = ({ navigation, route }) => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <FeaturedCard
+                    key={item.id}
                     imgUrl={item.imgUrl}
                     logo={item.logo}
                     price={item.price}
@@ -216,12 +217,12 @@ const SafeWay = ({ navigation, route }) => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                   <FeaturedCard
+                    key={item.id}
                     imgUrl={item.imgUrl}
                     logo={item.logo}
                     price={item.price}
                     title={item.title}
                     subtitle={item.subtitle}
-                    onPress={() => alert("nice job")}
                   />
                 )}
                 showsHorizontalScrollIndicator={false}
@@ -238,7 +239,6 @@ const SafeWay = ({ navigation, route }) => {
                 imgUrl={item.imgUrl}
                 title={item.title}
                 key={item.id}
-                onPress={() => alert("nice job")}
               />
             );
           })}
@@ -253,8 +253,6 @@ const styles = StyleSheet.create({
     flex: 1, // Ensure the image background takes up the entire screen
     resizeMode: "cover", // Adjust the image to cover the entire background
     height: 180,
-    // marginVertical: 10,
-    // marginHorizontal: 20,
     justifyContent: "flex-end",
     display: "flex",
     alignItems: "center",

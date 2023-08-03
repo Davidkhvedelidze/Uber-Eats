@@ -52,19 +52,18 @@ const SettingsScreen = ({ navigation }) => {
 
   const [Logout, setLogout] = useState(false);
 
-  const handleLogOut = async () => {
-    // const res = removeItemValue("user");
-    if (res) {
-      // setLogout(true);
-      navigation.navigate(ROUTES.LOGIN_SCREEN);
-    }
-  };
-
   const getUserData = async () => {
     const res = await getData("user");
     if (res) {
       setUser(res);
       return;
+    }
+  };
+  const handleLogOut = async () => {
+    // const res = removeItemValue("user");
+    if (res) {
+      // setLogout(true);
+      navigation.navigate(ROUTES.LOGIN_SCREEN);
     }
   };
   useEffect(() => {

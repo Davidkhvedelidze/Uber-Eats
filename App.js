@@ -5,6 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useCallback } from "react";
 import { PaperProvider } from "react-native-paper";
 import { UserProvider } from "./src/UserProvider";
+import { StatusBar } from "expo-status-bar";
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
@@ -28,6 +29,7 @@ export default function App() {
     <UserProvider>
       <PaperProvider>
         <AuthNavigator />
+        <StatusBar />
       </PaperProvider>
     </UserProvider>
   );

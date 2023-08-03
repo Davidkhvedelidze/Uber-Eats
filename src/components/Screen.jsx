@@ -20,7 +20,7 @@ const Container = styled.SafeAreaView`
   align-items: center;
   justify-content: center;
   background-color: white;
-  padding-top: ${Platform.OS === "ios" ? "0" : statusBarHeight}px;
+  padding-top: ${Platform.OS === "ios" ? 40 : statusBarHeight}px;
 `;
 
 export const Screen = ({ children, ...otherProps }) => {

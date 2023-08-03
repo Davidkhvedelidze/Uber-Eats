@@ -31,7 +31,6 @@ const Title = styled.Text`
   font-style: normal;
   font-weight: 600;
   font-size: 32px;
-
   color: #1f5460;
   margin-bottom: 10px;
 `;

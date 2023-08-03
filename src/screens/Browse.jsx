@@ -8,15 +8,14 @@ import { useNavigation } from "@react-navigation/native";
 import { BrowseList, AllCategoriesList } from "../data/appData";
 import { FlatList } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
+import IconTitle from "../components/atoms/IconTitle";
 
 const TopContainer = styled.View`
-  padding: 10px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  gap: 10px;
 `;
 
 const Container = styled(Screen)``;
@@ -30,16 +29,20 @@ const SearchContainer = styled.View`
   margin: 5px 0px 5px 0px;
   width: 100%;
   gap: 10px;
-  background-color: #fff4f4;
 `;
 const Results = styled.Pressable`
   margin: 5px;
   margin-right: 10px;
 `;
 
+const Wrapper = styled.View``;
+
 const Browse = ({ navigation }) => {
   const [browse, setBrowse] = useState(BrowseList);
   const [offers, setOffers] = useState(AllCategoriesList);
+
+  const [searchDetailed, setSearchDetailed] = useState(false);
+
   const newNavigation = useNavigation();
 
   const AllSearchList = [...browse, ...offers];
@@ -87,11 +90,12 @@ const Browse = ({ navigation }) => {
         }}
         showsVerticalScrollIndicator={false}
       >
-        {search.trim() && (
-          <>
-            <Title>Search Result</Title>
-            <SearchContainer>
-              {/* {searchResult.map((item) => (
+        <Wrapper>
+          {search.trim() && (
+            <>
+              <Title>Search Result</Title>
+              <SearchContainer>
+                {/* {searchResult.map((item) => (
                 <BrowseCard
                   title={item.title}
                   imgUrl={item.imgUrl}
@@ -99,55 +103,62 @@ const Browse = ({ navigation }) => {
                   navigation={newNavigation}
                 />
               ))} */}
-              <Results>
-                <FlatList
-                  data={searchResult}
-                  keyExtractor={(item) => item.id}
-                  renderItem={({ item }) => (
-                    <BrowseCard
-                      imgUrl={item.imgUrl}
-                      title={item.title}
-                      onPress={() => alert("nice job")}
-                      navigation={newNavigation}
-                    />
-                  )}
-                  showsHorizontalScrollIndicator={false}
-                  horizontal={true}
+                <Results>
+                  <FlatList
+                    data={searchResult}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                      <IconTitle
+                        // imgUrl={item.imgUrl}
+                        title={item.title}
+                        icon={
+                          <Ionicons
+                            name="md-search-outline"
+                            size={24}
+                            color="black"
+                          />
+                        }
+                        navigation={newNavigation}
+                      />
+                    )}
+                    showsHorizontalScrollIndicator={false}
+                    // horizontal={true}
+                  />
+                </Results>
+              </SearchContainer>
+            </>
+          )}
+          <Title>Top Categories</Title>
+          <TopContainer>
+            {browse.map((item) => {
+              return (
+                <BrowseCard
+                  title={item.title}
+                  imgUrl={item.imgUrl}
+                  key={item.id}
+                  onPress={() =>
+                    navigation.navigate(item.routeName, {
+                      num: item.type,
+                    })
+                  }
                 />
-              </Results>
-            </SearchContainer>
-          </>
-        )}
-        <Title>Top Categories</Title>
-        <TopContainer>
-          {browse.map((item) => {
-            return (
-              <BrowseCard
-                title={item.title}
-                imgUrl={item.imgUrl}
-                key={item.id}
-                onPress={() =>
-                  navigation.navigate(item.routeName, {
-                    num: item.type,
-                  })
-                }
-              />
-            );
-          })}
-        </TopContainer>
-        <Title>All Categories </Title>
+              );
+            })}
+          </TopContainer>
+          <Title>All Categories </Title>
 
-        <TopContainer>
-          {offers.map((item) => {
-            return (
-              <BrowseCard
-                title={item.title}
-                imgUrl={item.imgUrl}
-                key={item.id}
-              />
-            );
-          })}
-        </TopContainer>
+          <TopContainer>
+            {offers.map((item) => {
+              return (
+                <BrowseCard
+                  title={item.title}
+                  imgUrl={item.imgUrl}
+                  key={item.id}
+                />
+              );
+            })}
+          </TopContainer>
+        </Wrapper>
       </ScrollView>
     </Container>
   );

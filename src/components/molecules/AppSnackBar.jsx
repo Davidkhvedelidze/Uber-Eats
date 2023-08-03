@@ -21,7 +21,7 @@ const Title = styled.Text`
   color: white;
 `;
 const InfoText = styled.Text`
-  font-size: 12;
+  font-size: 12px;
   color: white;
 `;
 
